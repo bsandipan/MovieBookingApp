@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  bookings:
+    build: ./bookings
+    container_name: 'booking_service'
+    ports:
+      - "5003:5003"
+  movies:
+    build: ./movies
+    container_name: 'movie_service'
+    ports:
+      - "5001:5001"
+  showtimes:
+    build: ./showtimes
+    container_name: 'showtime_service'
+    ports:
+      - "5002:5002"
+  user:
+    build: ./user
+    container_name: 'user_service'
+    depends_on:
+      - bookings
+        movies
+    ports:
+      - "5000:5000"
