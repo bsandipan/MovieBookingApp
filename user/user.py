@@ -18,7 +18,7 @@ def nice_json(arg):
 
 app = Flask(__name__)
 
-with open("{}/database/users.json".format(root_dir()), "r") as f:
+with open("users.json".format(root_dir()), "r") as f:
     users = json.load(f)
 
 
@@ -60,7 +60,7 @@ def user_bookings(username):
         raise NotFound("User '{}' not found.".format(username))
 
     try:
-        users_bookings = requests.get("http://127.0.0.1:5003/bookings/{}".format(username))
+        users_bookings = requests.get("http://booking_service:5003/bookings/{}".format(username))
     except requests.exceptions.ConnectionError:
         raise ServiceUnavailable("The Bookings service is unavailable.")
 
@@ -71,11 +71,11 @@ def user_bookings(username):
 
     # For each booking, get the rating and the movie title
     result = {}
-    for date, movies in users_bookings.iteritems():
+    for date, movies in users_bookings.items():
         result[date] = []
         for movieid in movies:
             try:
-                movies_resp = requests.get("http://127.0.0.1:5001/movies/{}".format(movieid))
+                movies_resp = requests.get("http://movie_service:5001/movies/{}".format(movieid))
             except requests.exceptions.ConnectionError:
                 raise ServiceUnavailable("The Movie service is unavailable.")
             movies_resp = movies_resp.json()
