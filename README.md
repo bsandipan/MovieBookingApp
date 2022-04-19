@@ -163,4 +163,4 @@ To lookup information about a user:
     
 To get suggested movies for a user:
 
-    GET /users/michael_scott/suggested
+    GET /users/aakash_sharma/suggested
