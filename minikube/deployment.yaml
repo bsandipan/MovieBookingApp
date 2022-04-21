@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booking
+  labels:
+    name: booking
+spec:
+  selector:
+    matchLabels:
+      name: booking
+  template:
+    metadata:
+      labels:
+        name: bookings
+    spec:
+      containers:
+        - name: bookings
+          image: bookings_service
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 5003
